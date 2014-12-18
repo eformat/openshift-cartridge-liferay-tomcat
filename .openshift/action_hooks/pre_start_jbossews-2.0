@@ -19,7 +19,7 @@
 #
 EXT_LIB=$OPENSHIFT_DATA_DIR/lib/ext
 
-if [ ! -d "$EXT_LIB"]; then
+if [ ! -d "$EXT_LIB" ]; then
    echo "Creating $EXT_LIB directory"
    mkdir -p $EXT_LIB
 fi
@@ -34,7 +34,7 @@ done
 
 EXT_LIB_TEMP=$OPENSHIFT_JBOSSEWS_DIR/temp/liferay/com/liferay/portal/deploy/dependencies
 
-if [ ! -d "$EXT_LIB_TEMP"]; then
+if [ ! -d "$EXT_LIB_TEMP" ]; then
    echo "Creating $EXT_LIB_TEMP directory"
    mkdir -p $EXT_LIB_TEMP
 fi
