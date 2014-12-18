@@ -41,7 +41,7 @@ fi
 
 for x in resin.jar script-10.jar; do
     if [ ! -f "$EXT_LIB_TEMP/$x" ]; then
-       wget -O$EXT_LIB_TEMP/$x -v "http://eformat.co.nz/liferay-jars/liferay/com/liferay/portal/deploy/dependencies/$x"
+       wget -O$EXT_LIB_TEMP/$x -v "http://eformat.co.nz/liferay-jars/temp/liferay/com/liferay/portal/deploy/dependencies/$x"
     fi
 done
 
