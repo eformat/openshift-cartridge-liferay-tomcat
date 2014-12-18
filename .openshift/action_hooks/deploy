@@ -55,7 +55,7 @@ then
     echo
     echo "Database '$OPENSHIFT_APP_NAME' found, importing 'portal-mysql.sql' into database '$OPENSHIFT_APP_NAME'."
     echo
-    /usr/bin/mysql -u "$OPENSHIFT_MYSQL_DB_USERNAME" --password="$OPENSHIFT_MYSQL_DB_PASSWORD" -h "$OPENSHIFT_MYSQL_DB_HOST" "$OPENSHIFT_APP_NAME" < "$OPENSHIFT_REPO_DIR/.openshift/action_hooks/portal-mysql.sql"
+    #/usr/bin/mysql -u "$OPENSHIFT_MYSQL_DB_USERNAME" --password="$OPENSHIFT_MYSQL_DB_PASSWORD" -h "$OPENSHIFT_MYSQL_DB_HOST" "$OPENSHIFT_APP_NAME" < "$OPENSHIFT_REPO_DIR/.openshift/action_hooks/portal-mysql.sql"
     echo
     echo "done."
     echo "==================================================================================="
