@@ -1,0 +1,48 @@
+#!/bin/bash
+
+# The pre_start_cartridge and pre_stop_cartridge hooks are *SOURCED*
+# immediately before (re)starting or stopping the specified cartridge.
+# They are able to make any desired environment variable changes as
+# well as other adjustments to the application environment.
+
+# The post_start_cartridge and post_stop_cartridge hooks are executed
+# immediately after (re)starting or stopping the specified cartridge.
+
+# Exercise caution when adding commands to these hooks.  They can
+# prevent your application from stopping cleanly or starting at all.
+# Application start and stop is subject to different timeouts
+# throughout the system.
+
+#
+# append common.loader=..,"${catalina.home}/../app-root/data/lib/ext/*.jar"
+# in .openshift/catalina.properties
+#
+EXT_LIB=$OPENSHIFT_DATA_DIR/lib/ext
+
+if [ ! -d "$EXT_LIB"]; then
+   echo "Creating $EXT_LIB directory"
+   mkdir -p $EXT_LIB
+fi
+
+echo "Downloading required liferay dependency jars"
+
+for x in activation.jar hsql.jar jta.jar junit.jar mail.jar persistence.jar portlet.jar support-tomcat.jar ccpp.jar jms.jar jtds.jar jutf7.jar mysql.jar portal-service.jar postgresql.jar; do
+    if [ ! -f "$EXT_LIB/$x" ]; then
+       wget -O$EXT_LIB/$x -v "http://eformat.co.nz/liferay-jars/ext/$x"
+    fi
+done
+
+EXT_LIB_TEMP=$OPENSHIFT_JBOSSEWS_DIR/temp/liferay/com/liferay/portal/deploy/dependencies
+
+if [ ! -d "$EXT_LIB_TEMP"]; then
+   echo "Creating $EXT_LIB_TEMP directory"
+   mkdir -p $EXT_LIB_TEMP
+fi
+
+for x in resin.jar script-10.jar; do
+    if [ ! -f "$EXT_LIB_TEMP/$x" ]; then
+       wget -O$EXT_LIB_TEMP/$x -v "http://eformat.co.nz/liferay-jars/liferay/com/liferay/portal/deploy/dependencies/$x"
+    fi
+done
+
+export JAVA_OPTS="$JAVA_OPTS -Dfile.encoding=UTF8 -Dorg.apache.catalina.loader.WebappClassLoader.ENABLE_CLEAR_REFERENCES=false -Duser.timezone=GMT -Xmx1024m -XX:MaxPermSize=256m"
