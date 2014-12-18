@@ -51,6 +51,11 @@ if [ "$_LIFERAY_PORTAL_DEPLOYING" = "$_LIFERAY_PORTAL_DEPLOYED" ]
    fi	
    cp -ra ${_CUSTOMIZATION_DIR}/ROOT.war/* ${_LIFERAY_PORTAL_DEPLOY_DIR}/$_LIFERAY_PORTAL_DEPLOYED
    cp -urv ${OPENSHIFT_REPO_DIR}/.openshift/action_hooks/ROOT.xml ${OPENSHIFT_JBOSSEWS_DIR}/conf/Catalina/localhost/ROOT.xml
+
+   # rename base to match expected configuration
+   echo "Renaming deployment to ROOT"
+   mv ${_LIFERAY_PORTAL_DEPLOYING} ROOT
+   
    echo "Portal properties/configuration successfully updated, please access the portal after 2-5 minutes"
    
  else
@@ -62,12 +67,17 @@ if [ "$_LIFERAY_PORTAL_DEPLOYING" = "$_LIFERAY_PORTAL_DEPLOYED" ]
    if [ -f ${OPENSHIFT_TMP_DIR}/${_LIFERAY_PORTAL_DEPLOYING} ]
     then
        echo "Extracting the Liferay Portal ${_LIFERAY_PORTAL_DEPLOYING} as default application ROOT.war"
-       jar -xvf ${OPENSHIFT_TMP_DIR}/${_LIFERAY_PORTAL_DEPLOYING}
+       jar -xvf ${OPENSHIFT_TMP_DIR}/${_LIFERAY_PORTAL_DEPLOYING} 
    fi
    # update configurations
    echo "Update the custom configuration files like portal-*.properties, log4j-ext etc.,"
    cp -urv ${_CUSTOMIZATION_DIR}/ROOT.war/* ${_LIFERAY_PORTAL_DEPLOY_DIR}/${_LIFERAY_PORTAL_DEPLOYING}
    cp -urv ${OPENSHIFT_REPO_DIR}/.openshift/action_hooks/ROOT.xml ${OPENSHIFT_JBOSSEWS_DIR}/conf/Catalina/localhost/ROOT.xml
+   
+   # rename base to match expected configuration
+   echo "Renaming deployment to ROOT"
+   mv ${_LIFERAY_PORTAL_DEPLOYING} ROOT
+   
    # update the currently deployed war
    echo ${_LIFERAY_PORTAL_DEPLOYING} >> ${OPENSHIFT_DATA_DIR}/deployed-war-info
 fi
