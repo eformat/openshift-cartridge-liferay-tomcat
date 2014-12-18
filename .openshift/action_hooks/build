@@ -50,6 +50,7 @@ if [ "$_LIFERAY_PORTAL_DEPLOYING" = "$_LIFERAY_PORTAL_DEPLOYED" ]
        jar -xvf ${OPENSHIFT_TMP_DIR}/${_LIFERAY_PORTAL_DEPLOYING}
    fi	
    cp -ra ${_CUSTOMIZATION_DIR}/ROOT.war/* ${_LIFERAY_PORTAL_DEPLOY_DIR}/$_LIFERAY_PORTAL_DEPLOYED
+   cp -a $ {$OPENSHIFT_REPO_DIR}/.openshift/action_hooks/ROOT.xml ${OPENSHIFT_JBOSSEWS_DIR}/conf/Catalina/localhost/ROOT.xml
    echo "Portal properties/configuration successfully updated, please access the portal after 2-5 minutes"
    
  else
@@ -66,7 +67,7 @@ if [ "$_LIFERAY_PORTAL_DEPLOYING" = "$_LIFERAY_PORTAL_DEPLOYED" ]
    # update configurations
    echo "Update the custom configuration files like portal-*.properties, log4j-ext etc.,"
    cp -urv ${_CUSTOMIZATION_DIR}/ROOT.war/* ${_LIFERAY_PORTAL_DEPLOY_DIR}/${_LIFERAY_PORTAL_DEPLOYING}
-
+   cp -a $ {$OPENSHIFT_REPO_DIR}/.openshift/action_hooks/ROOT.xml ${OPENSHIFT_JBOSSEWS_DIR}/conf/Catalina/localhost/ROOT.xml
    # update the currently deployed war
    echo ${_LIFERAY_PORTAL_DEPLOYING} >> ${OPENSHIFT_DATA_DIR}/deployed-war-info
 fi
