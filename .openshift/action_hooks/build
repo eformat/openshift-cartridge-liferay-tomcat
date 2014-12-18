@@ -50,8 +50,13 @@ if [ "$_LIFERAY_PORTAL_DEPLOYING" = "$_LIFERAY_PORTAL_DEPLOYED" ]
        jar -xvf ${OPENSHIFT_TMP_DIR}/${_LIFERAY_PORTAL_DEPLOYING}
    fi	
    cp -ra ${_CUSTOMIZATION_DIR}/ROOT.war/* ${_LIFERAY_PORTAL_DEPLOY_DIR}/$_LIFERAY_PORTAL_DEPLOYED
+   
    cp -urv ${OPENSHIFT_REPO_DIR}/.openshift/action_hooks/ROOT.xml ${OPENSHIFT_JBOSSEWS_DIR}/conf/Catalina/localhost/ROOT.xml
-
+   sed -ri -e "s/OPENSHIFT_MYSQL_DB_HOST/${OPENSHIFT_MYSQL_DB_HOST}/g" \
+   -e "s/OPENSHIFT_APP_NAME/${OPENSHIFT_APP_NAME}/g" \
+   -e "s/OPENSHIFT_MYSQL_DB_USERNAME/${OPENSHIFT_MYSQL_DB_USERNAME}/g" \
+   -e "s/OPENSHIFT_MYSQL_DB_PASSWORD/${OPENSHIFT_MYSQL_DB_PASSWORD}/g" ${OPENSHIFT_JBOSSEWS_DIR}/conf/Catalina/localhost/ROOT.xml
+   
    # rename base to match expected configuration
    echo "Renaming deployment to ROOT"
    cd ${_LIFERAY_PORTAL_DEPLOY_DIR}
@@ -74,6 +79,10 @@ if [ "$_LIFERAY_PORTAL_DEPLOYING" = "$_LIFERAY_PORTAL_DEPLOYED" ]
    echo "Update the custom configuration files like portal-*.properties, log4j-ext etc.,"
    cp -urv ${_CUSTOMIZATION_DIR}/ROOT.war/* ${_LIFERAY_PORTAL_DEPLOY_DIR}/${_LIFERAY_PORTAL_DEPLOYING}
    cp -urv ${OPENSHIFT_REPO_DIR}/.openshift/action_hooks/ROOT.xml ${OPENSHIFT_JBOSSEWS_DIR}/conf/Catalina/localhost/ROOT.xml
+   sed -ri -e "s/OPENSHIFT_MYSQL_DB_HOST/${OPENSHIFT_MYSQL_DB_HOST}/g" \
+   -e "s/OPENSHIFT_APP_NAME/${OPENSHIFT_APP_NAME}/g" \
+   -e "s/OPENSHIFT_MYSQL_DB_USERNAME/${OPENSHIFT_MYSQL_DB_USERNAME}/g" \
+   -e "s/OPENSHIFT_MYSQL_DB_PASSWORD/${OPENSHIFT_MYSQL_DB_PASSWORD}/g" ${OPENSHIFT_JBOSSEWS_DIR}/conf/Catalina/localhost/ROOT.xml
    
    # rename base to match expected configuration
    echo "Renaming deployment to ROOT"
