@@ -45,4 +45,4 @@ for x in resin.jar script-10.jar; do
     fi
 done
 
-export JAVA_OPTS="$JAVA_OPTS -Dfile.encoding=UTF8 -Dorg.apache.catalina.loader.WebappClassLoader.ENABLE_CLEAR_REFERENCES=false -Duser.timezone=GMT -Xmx1024m -XX:MaxPermSize=256m export -Djava.rmi.server.hostname=${OPENSHIFT_JBOSSEWS_IP}"
+export JAVA_OPTS="$JAVA_OPTS -Dfile.encoding=UTF8 -Dorg.apache.catalina.loader.WebappClassLoader.ENABLE_CLEAR_REFERENCES=false -Duser.timezone=GMT -Xmx1024m -XX:MaxPermSize=256m -Djava.rmi.server.hostname=${OPENSHIFT_JBOSSEWS_IP}"
