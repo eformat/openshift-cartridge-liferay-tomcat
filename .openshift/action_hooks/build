@@ -42,9 +42,16 @@ fi
 # Download the Liferay Portal War
 if [ "$_LIFERAY_PORTAL_DEPLOYING" = "$_LIFERAY_PORTAL_DEPLOYED" ]
  then
-   echo "Portal already deployed, updating portal-*.properties"
+   echo "Portal already downloaded, unzipping and updating portal-*.properties"
+   cd ${_LIFERAY_PORTAL_DEPLOY_DIR}/${_LIFERAY_PORTAL_DEPLOYING}
+   if [ -f ${OPENSHIFT_TMP_DIR}/${_LIFERAY_PORTAL_DEPLOYING} ]
+    then
+       echo "Extracting the Liferay Portal ${_LIFERAY_PORTAL_DEPLOYING} as default application ROOT.war"
+       jar -xvf ${OPENSHIFT_TMP_DIR}/${_LIFERAY_PORTAL_DEPLOYING}
+   fi	
    cp -ra ${_CUSTOMIZATION_DIR}/ROOT.war/* ${_LIFERAY_PORTAL_DEPLOY_DIR}/$_LIFERAY_PORTAL_DEPLOYED
    echo "Portal properties/configuration successfully updated, please access the portal after 2-5 minutes"
+   
  else
    echo "Downloading Liferay Portal : ${_LIFERAY_PORTAL_DEPLOYING}"
    cd ${OPENSHIFT_TMP_DIR}
@@ -59,6 +66,7 @@ if [ "$_LIFERAY_PORTAL_DEPLOYING" = "$_LIFERAY_PORTAL_DEPLOYED" ]
    # update configurations
    echo "Update the custom configuration files like portal-*.properties, log4j-ext etc.,"
    cp -urv ${_CUSTOMIZATION_DIR}/ROOT.war/* ${_LIFERAY_PORTAL_DEPLOY_DIR}/${_LIFERAY_PORTAL_DEPLOYING}
+
    # update the currently deployed war
    echo ${_LIFERAY_PORTAL_DEPLOYING} >> ${OPENSHIFT_DATA_DIR}/deployed-war-info
 fi
