@@ -54,6 +54,7 @@ if [ "$_LIFERAY_PORTAL_DEPLOYING" = "$_LIFERAY_PORTAL_DEPLOYED" ]
 
    # rename base to match expected configuration
    echo "Renaming deployment to ROOT"
+   cd ${_LIFERAY_PORTAL_DEPLOY_DIR}
    mv ${_LIFERAY_PORTAL_DEPLOYING} ROOT
    
    echo "Portal properties/configuration successfully updated, please access the portal after 2-5 minutes"
@@ -76,6 +77,7 @@ if [ "$_LIFERAY_PORTAL_DEPLOYING" = "$_LIFERAY_PORTAL_DEPLOYED" ]
    
    # rename base to match expected configuration
    echo "Renaming deployment to ROOT"
+   cd ${_LIFERAY_PORTAL_DEPLOY_DIR}
    mv ${_LIFERAY_PORTAL_DEPLOYING} ROOT
    
    # update the currently deployed war
