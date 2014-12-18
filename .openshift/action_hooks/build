@@ -40,7 +40,7 @@ if [ -f "${OPENSHIFT_DATA_DIR}/deployed-war-info" ]
 fi
 
 # Download the Liferay Portal War
-if [ "$_LIFERAY_PORTAL_DEPLOYING" = "$_LIFERAY_PORTAL_DEPLOYED" ]
+if [ "$_LIFERAY_PORTAL_DEPLOYING" = "$_LIFERAY_PORTAL_DEPLOYED" -a -f ${OPENSHIFT_TMP_DIR}/${_LIFERAY_PORTAL_DEPLOYING} ]
  then
    echo "Portal already downloaded, unzipping and updating portal-*.properties"
    cd ${_LIFERAY_PORTAL_DEPLOY_DIR}/${_LIFERAY_PORTAL_DEPLOYING}
