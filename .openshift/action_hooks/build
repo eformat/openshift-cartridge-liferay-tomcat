@@ -18,7 +18,8 @@ _LIFERAY_PORTAL_DEPLOYED=""
 ## Liferay Portal deployment directory, its the core portal and not the plugins
 #
 
-_LIFERAY_PORTAL_DEPLOY_DIR="${OPENSHIFT_DATA_DIR}liferay"
+#_LIFERAY_PORTAL_DEPLOY_DIR="${OPENSHIFT_DATA_DIR}liferay"
+_LIFERAY_PORTAL_DEPLOY_DIR="${OPENSHIFT_REPO_DIR}/webapps"
 
 #
 ## Create the directory if it does not exist
