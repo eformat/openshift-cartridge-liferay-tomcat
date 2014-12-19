@@ -247,3 +247,4 @@ grant codeBase "file:${catalina.home}/webapps/manager/-" {
 //      permission java.net.SocketPermission "*.noaa.gov:80", "connect";
 // };
 
+		
